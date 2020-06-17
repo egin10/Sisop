@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,9 +22,21 @@ public class MainActivity extends AppCompatActivity {
         loadData();
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
-        CustomAdapter mAdapter = new CustomAdapter(this, listOs);
+        final CustomAdapter mAdapter = new CustomAdapter(this, listOs);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter.notifyDataSetChanged();
+
+        Button btnRefresh = findViewById(R.id.btn_refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Refresh Data...", Toast.LENGTH_SHORT).show();
+                listOs.clear();
+                loadData();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     void loadData() {

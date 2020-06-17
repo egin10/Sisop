@@ -45,6 +45,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), holder.namaItemView.getText(), Toast.LENGTH_SHORT).show();
+                sisop.remove(position);
+                notifyDataSetChanged();
             }
         });
     }
